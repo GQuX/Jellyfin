@@ -1,0 +1,16 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    ports:
+      - "8096:8096"
+    volumes:
+      - "X:/Jellyfin/config:/config"
+      - "X:/Jellyfin/cache:/cache"
+      - "X:/Jellyfin/media:/media"
+    restart: unless-stopped
+
+# powershell: X:\Jellyfin
+# - docker compose up -d
+# - http://localhost:8096
+# - docker compose down
