@@ -1,28 +1,52 @@
-{{#if PlayedToCompletion}}
-	{{!-- Don't do anything --}}
-{{else}}
-{
-	"username": "{{BotUsername}}",
-	"content": "{{MentionType}}",
-	"avatar_url": "{{AvatarUrl}}",
-	"embeds": [{
-		"description": "## {{#if_equals ItemType 'Movie'}}{{#if_exist Provider_imdb}}[{{Name}}](https://www.imdb.com/title/{{Provider_imdb}}/){{else}}{{Name}}{{/if_exist}}{{/if_equals}}{{#if_equals ItemType 'Episode'}}{{SeriesName}} {{#if_exist Provider_imdb}}[`S{{SeasonNumber00}}E{{EpisodeNumber00}}`](https://www.imdb.com/title/{{Provider_imdb}}/){{else}}`S{{SeasonNumber00}}E{{EpisodeNumber00}}`{{/if_exist}} {{Name}}{{/if_equals}}",
-		"color": {{#if_equals NotificationType 'PlaybackStart'}}1720348{{else}}4789792{{/if_equals}},
-		
-		"fields": [{
-				"name": "Client",
-				"value": "> **Method:** {{PlayMethod}}\n> **Device:** {{DeviceName}} ({{RemoteEndPoint}})",
-				"inline": true
-			}, {
-				"name": "Media",
-				"value": "> **Position:** {{PlaybackPosition}} / {{RunTime}}\n> **Genres:** *{{Genres}}*",
-				"inline": true
-		}],
-		
-		"footer": {
-			"text": "{{NotificationUsername}} • {{#if_equals NotificationType 'PlaybackStart'}}Started{{else}}Stopped{{/if_equals}} Watching"
-		},
-		"timestamp": "{{UtcTimestamp}}"
-	}]
-}
-{{/if}}
+{{#if_equals ItemType 'Movie'}}
+	{
+		"username": "{{BotUsername}}",
+		"content": "{{MentionType}}",
+		"avatar_url": "{{AvatarUrl}}",
+		"embeds": [{
+			"description": "## {{#if_exist Provider_imdb}}[{{Name}}](https://www.imdb.com/title/{{Provider_imdb}}/){{else}}{{Name}}{{/if_exist}}",
+			"color": {{#if_equals NotificationType 'PlaybackStart'}}1720348{{else}}4789792{{/if_equals}},
+			
+			"fields": [{
+					"name": "Client",
+					"value": "> **Method:** {{PlayMethod}}\n> **Device:** {{DeviceName}} ||{{RemoteEndPoint}}||",
+					"inline": true
+				}, {
+					"name": "Media",
+					"value": "> **Position:** {{PlaybackPosition}} / {{RunTime}}\n> **Genres:** *{{Genres}}*",
+					"inline": true
+			}],
+			
+			"footer": {
+				"text": "{{NotificationUsername}} • {{#if_equals NotificationType 'PlaybackStart'}}Started{{else}}Stopped{{/if_equals}} Watching"
+			},
+			"timestamp": "{{UtcTimestamp}}"
+		}]
+	}
+{{else}}{{#if_equals ItemType 'Episode'}}
+	{{#if PlayedToCompletion}} {{!-- Don't post --}} {{else}}
+	{
+		"username": "{{BotUsername}}",
+		"content": "{{MentionType}}",
+		"avatar_url": "{{AvatarUrl}}",
+		"embeds": [{
+			"description": "## {{SeriesName}} {{#if_exist Provider_imdb}}[` S{{SeasonNumber00}}E{{EpisodeNumber00}} `](https://www.imdb.com/title/{{Provider_imdb}}/){{else}}` S{{SeasonNumber00}}E{{EpisodeNumber00}} `{{/if_exist}} {{Name}}",
+			"color": {{#if_equals NotificationType 'PlaybackStart'}}1720348{{else}}4789792{{/if_equals}},
+			
+			"fields": [{
+					"name": "Client",
+					"value": "> **Method:** {{PlayMethod}}\n> **Device:** {{DeviceName}} ||{{RemoteEndPoint}}||",
+					"inline": true
+				}, {
+					"name": "Media",
+					"value": "> **Position:** {{PlaybackPosition}} / {{RunTime}}\n> **Genres:** *{{Genres}}*",
+					"inline": true
+			}],
+			
+			"footer": {
+				"text": "{{NotificationUsername}} • {{#if_equals NotificationType 'PlaybackStart'}}Started{{else}}Stopped{{/if_equals}} Watching"
+			},
+			"timestamp": "{{UtcTimestamp}}"
+		}]
+	}
+{{/if}}{{/if_equals}}{{/if_equals}}
