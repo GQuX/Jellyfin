@@ -4,7 +4,7 @@
 		"content": "{{MentionType}}",
 		"avatar_url": "{{AvatarUrl}}",
 		"embeds": [{
-			"description": "## {{#if_exist Provider_imdb}}[{{Name}}](https://www.imdb.com/title/{{Provider_imdb}}/){{else}}{{Name}}{{/if_exist}}",
+			"description": "## {{#if_exist Provider_imdb}}[{{Name}}](https://letterboxd.com/imdb/{{Provider_imdb}}/){{else}}{{Name}}{{/if_exist}}",
 			"color": {{#if_equals NotificationType 'PlaybackStart'}}1720348{{else}}4789792{{/if_equals}},
 			
 			"fields": [{
